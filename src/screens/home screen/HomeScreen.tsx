@@ -48,10 +48,8 @@ const rechargePage = async () =>{
 }
 
 
-//hook controla la visivilidad del modal
-const [showModalProfile, setShowModalProfile] = useState(false)
 
-//hook use state controlar la visibilidad del modal new letter
+//hook use state controlar la visibilidad del modal new note
 const [showModalLetter, setShowModalLetter] = useState(false)
 
 //funcin para oberner las cartas almacenadas 
