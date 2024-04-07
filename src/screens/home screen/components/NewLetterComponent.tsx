@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Divider, IconButton, Modal, Portal, Text, TextInput } from 'react-native-paper'
-import { styles } from '../../../theme/style'
+import { styles } from '../../../theme/style';
 import { View } from 'react-native'
 import { push, ref, set } from 'firebase/database'
 import { dbRealTime } from '../../../configs/firebaseConfig'
@@ -58,28 +58,29 @@ export const NewLetterComponent = ({visible, setVisible}:Props) => {
         <Portal>
         <Modal visible={visible} contentContainerStyle={styles.modal}>
           <View style={styles.headerModal}>
-            <Text variant='headlineMedium'>Nueva carta</Text>
+            <Text variant='headlineMedium'>Nueva nota</Text>
             <IconButton icon='close' onPress={()=>setVisible(false)}/>
           </View>
           <Divider bold/>
           <TextInput
-            label='Para'
+            label='Prom'
             mode='outlined'
             onChangeText={(value)=>handlerSetLetterForm('to', value)}
           />
           <TextInput
-            label='Asunto'
+            label='Detalle'
             mode='outlined'
             onChangeText={(value)=>handlerSetLetterForm('subject', value)}
           />
           <TextInput
-            label='Mensaje'
+            label='Nota'
             mode='outlined'
             onChangeText={(value)=>handlerSetLetterForm('message', value)}
             multiline={true}
             numberOfLines={7}
           />
-          <Button
+          <Button 
+          buttonColor='orange'
           style={{marginTop:20}}
           mode='contained'
           onPress={()=>handlerSaveLetter()}

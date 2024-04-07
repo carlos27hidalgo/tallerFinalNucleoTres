@@ -109,7 +109,7 @@ export const RegisterScreens = () => {
     </Snackbar>
     <Text
     style={styles.textNavigation}
-      onPress={()=>navigationHook.dispatch(CommonActions.navigate({name:'Register'}))}
+      onPress={()=>navigationHook.dispatch(CommonActions.navigate({name:'Loggin'}))}
       >Ya tienes una cuenta? Inicia sesion</Text>
   </View>
     

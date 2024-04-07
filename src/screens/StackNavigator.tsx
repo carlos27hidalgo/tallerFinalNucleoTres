@@ -50,7 +50,7 @@ export const StackNavigator = () => {
     //arreglo de rutas para el usuario autenticado
     const routesAuth: Routes[]=[
         {name: "Home", screen: HomeScreen},
-        {name: "Detail", screen: DetailLetterScreen, headerShow:true, title:'Detalle carta'}
+        {name: "Detail", screen: DetailLetterScreen, headerShow:true, title:'Actualizar nota'}
     ]
 
   return (

@@ -16,12 +16,12 @@ export const LetterCardComponent = ({letter}:Props) => {
   return (
     <View>
         <View>
-            <Text variant='labelLarge'>Para: {letter.to}</Text>
-            <Text variant='bodyMedium'>Asunto: {letter.subject}</Text>
+            <Text variant='labelLarge'>Ingreso: {letter.to}</Text>
+            <Text variant='bodyMedium'>Descripcion: {letter.subject}</Text>
         </View>
         <View style={styles.contentLetter}>
         <IconButton
-            icon="email-open"
+            icon="pen"
             style={styles.iconProfile}
             size={20}
             onPress={() => navigation.dispatch(CommonActions.navigate({name:'Detail', params:{letter}}))}

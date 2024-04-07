@@ -60,7 +60,7 @@ export const DetailLetterScreen = () => {
   return (
     <View style={styles.contentDetailLetter}>
         <View style={styles.subjectLetter}>
-            <Text variant='headlineSmall'>Asunto:</Text>
+            <Text variant='headlineSmall'>Detalle:</Text>
             <TextInput
                 value={detailForm.subject}
                 onChangeText={(value)=>handlerSetDetailForm('subject', value)}
@@ -68,12 +68,12 @@ export const DetailLetterScreen = () => {
             />
         </View>
         <Divider bold/>
-        <View>
-          <Text variant='bodyLarge'>Para: {detailForm.to}</Text>
+        <View >
+          <Text variant='bodyLarge'>Prom: {detailForm.to}</Text>
         </View>
         <Divider bold/>
         <View>
-          <Text style={styles.textMessage} >Mensaje</Text>
+          <Text style={styles.textMessage} >Nota</Text>
           <TextInput
           value={detailForm.message}
           multiline={true}
@@ -81,8 +81,8 @@ export const DetailLetterScreen = () => {
           onChangeText={(value)=>handlerSetDetailForm('message', value)}
           />
         </View>
-        <Button mode='contained' icon='email-sync' onPress={()=>handlerUpdateLetter()}>Actualizar</Button>
-        <Button mode='contained' icon='remove' onPress={()=>handlerDeleteLetter()}>Eliminar</Button>
+        <Button mode='contained' icon='update' style={styles.buttons} onPress={()=>handlerUpdateLetter()}>Actualizar</Button>
+        <Button mode='contained' icon='delete' style={styles.buttons} onPress={()=>handlerDeleteLetter()}>Eliminar</Button>
     </View>
   )
 }

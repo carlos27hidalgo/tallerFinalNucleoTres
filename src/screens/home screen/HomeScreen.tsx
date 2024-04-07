@@ -1,4 +1,4 @@
-import { onAuthStateChanged, updateProfile } from 'firebase/auth'
+import { onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
 import React, { Fragment, useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { Avatar, Button, Divider, FAB, Icon, IconButton, MD3Colors, Modal, Portal, Text, TextInput } from 'react-native-paper'
@@ -8,6 +8,7 @@ import firebase from 'firebase/auth'
 import { LetterCardComponent } from './components/LetterCardComponent'
 import { NewLetterComponent } from './components/NewLetterComponent'
 import { onValue, ref } from 'firebase/database'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 
 interface UserForm{
   name: string
@@ -22,6 +23,29 @@ export interface Letter{
 }
 
 export const HomeScreen = () => {
+
+//hook de navegacion
+const navigationHook = useNavigation();
+
+//funcion deslogueo
+const logOut=()=>{
+ const signOutDB = signOut(auth).then(() => {
+    // Sign-out successful.
+    console.log("deslogueo correcto")
+    rechargePage()
+    //navigationHook.dispatch(CommonActions.navigate({name:'Register'}))
+  }).catch((error) => {
+    console.log(error)
+    // An error happened.
+  }); 
+} 
+
+//funcion recarga pagina
+const rechargePage = async () =>{
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  window.location.reload()
+  //navigationHook.goBack()
+}
 
 
 //hook controla la visivilidad del modal
@@ -66,33 +90,23 @@ const handlerUpdateUserForm=(key: string, value: string)=>{
   setUserForm({...userForm, [key]:value})
 }
 
-//funcion actuliza la data del usuario
-const handlerUpdateUser=async()=>{
-  try {
-    await updateProfile(userAuth!, {displayName: userForm.name})
-    console.log(userForm)
-  } catch (error) {
-    console.log(error)
-  }
-  
-  setShowModalProfile(false)
-}
+
 
   return (
     <Fragment>
       <View style={styles.contentHome}>
         <View style={styles.headerHome}>
-            <Avatar.Text size={55} label="CH" />
+            <Avatar.Image size={55}  source={require('./img/notas-ancladas.png')}/>
             <View>
-                <Text variant='bodySmall'> bienvenido </Text>
+                <Text variant='displayLarge'> Bloc personal de notas </Text>
                 <Text variant='labelLarge'> {userForm.name} </Text>
                 <View style={styles.iconProfile}>
                 <IconButton
-                  icon="cog"
-          
-                  size={20}
+                  icon="logout"
+                  iconColor='orange'
+                  size={20} 
                   mode='contained'
-                  onPress={() => setShowModalProfile(true)}
+                  onPress={() => logOut()}
                 />
                 </View>
 
@@ -105,39 +119,11 @@ const handlerUpdateUser=async()=>{
               keyExtractor={item => item.id}
             />
     </View>
-    <Portal>
-      <Modal visible={showModalProfile} contentContainerStyle={styles.modal}>
-        <View style={styles.headerModal}>
-          <Text variant='headlineLarge'>Mi perfil</Text>
-          <IconButton icon='close' onPress={()=>setShowModalProfile(false)}/>
-        </View>
-        <Divider bold/>
-        <View>
-          <TextInput 
-          mode='outlined'
-          label='Nombre'
-          value={userForm.name}
-          onChangeText={(value)=>handlerUpdateUserForm('name', value)}
-          />
-          <TextInput 
-          mode='outlined'
-          label='Correo'
-          value={userAuth?.email!}
-          disabled
-          />
-          <View>
-          
-          </View>
-          
-        </View>
-        
-        <Button mode='contained' onPress={()=>handlerUpdateUser()}>Actualizar</Button>
-      </Modal>
-
-    </Portal>
+   
     <FAB
       icon="plus"
       style={styles.fab}
+      color='orange'
       onPress={() => setShowModalLetter(true)}
     />
     <NewLetterComponent visible={showModalLetter} setVisible={setShowModalLetter}/>
